@@ -11,20 +11,18 @@ function get_questions() {
     const BUTTON = document.getElementById('submit')
     const RESULT_DIV = document.getElementById('result')
     let questions = []
+    console.log('oi')
+    console.log(fetch('get_questions.php'))
 
-    fetch('get_questions.php')
-        .then(response => response.json())
-        .then(data => {
-            questions = data
-            show_questions()
-        })
+    // fetch('get_questions.php').then(response => response.json()).then(data => {
+    //     questions = data
+    //     show_questions()
+    //})
 
 }
 
-function show_questions()
-{
-    if (current_question_index < questions.length)
-    {
+function show_questions() {
+    if (current_question_index < questions.length) {
         const QUESTION = questions[current_question_index]
         QUESTION_ELEMENT.textContent = QUESTION.question
         OPTIONS_LABELS[0].textContent = QUESTION.option1
@@ -32,28 +30,23 @@ function show_questions()
         OPTIONS_LABELS[2].textContent = QUESTION.option3
         OPTIONS_LABELS[3].textContent = QUESTION.option4
     }
-    else
-    {
-        show_result()    
+    else {
+        show_result()
     }
 }
 
-function show_result()
-{
+function show_result() {
     RESULT_DIV.textContent = 'Fim do Quiz'
 }
 
-function clicado()
-{
+function clicado() {
     const SELECT_OPTION = document.querySelector('input[name=option]:checked')
-    if (SELECT_OPTION)
-    {
+    if (SELECT_OPTION) {
         const ANSWER = SELECT_OPTION.nextElementSibling.textContent
         current_question_index++
         show_questions()
     }
-    else
-    {
+    else {
         alert('Selecione uma opção antes de enviar')
     }
 }
