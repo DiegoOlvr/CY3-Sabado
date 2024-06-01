@@ -15,20 +15,21 @@ else
     {
         $name_user = $_POST['user'];
         $pass_user = $_POST['password'];
-        var_dump($name_user, $pass_user);
         
-        $sql_code = "SELECT * usuario WHERE user = $name_user AND password = $pass_user";
+        $sql_code = "SELECT * FROM usuario WHERE user = '$name_user' and password = '$pass_user'";
 
         $sql_result = $mysqli->query($sql_code);
-        var_dump($sql_result);
 
-        if ($sql_result->num_rows > 0)
+        $quantidade_linhas = $sql_result->num_rows;
+
+        if ($quantidade_linhas >= 1)
         {
-            echo 'foi';
+            $_SESSION['user'] = $name_user;
+            header('Location: painel.php');
         }
         else
         {
-            echo 'não';
+            header('Location: index.php?erro');
         }
 
     }
